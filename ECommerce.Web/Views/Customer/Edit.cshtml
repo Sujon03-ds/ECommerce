@@ -1,0 +1,97 @@
+﻿@model ECommerce.Web.Models.Customer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .txtRequired {
+        border-left: 2px solid #ff0000;
+    }
+
+    .spnRequired {
+        color: #ff0000;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header" style="background-color: #ecf0f5;">
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+        <li class="active">Customer</li>
+    </ol>
+</section>
+<section class="content-header" style=" margin-bottom:50px; margin-top:50px; position:relative">
+    <h1 style="position:absolute; top:0px ; left:16px">Update Customer</h1>
+    <a style="position:absolute; top:0px ; right:16px" class="btn btn-default" href="@Url.Action("Index", "Bank")"><i class="fa fa-reply"></i> Back to list</a>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+
+        @using (Html.BeginForm("Edit", "Customer", FormMethod.Post, new { @class = "form-horizontal form-label-left", @role = "form", autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="MaterialUnit">
+                        Name
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control col-md-7 col-xs-12 txtRequired", @id = "txtName", @required = "required", @type = "text", @placeholder = "Name" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "spnRequired" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="MaterialUnit">
+                        Phone
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.TextBoxFor(model => model.PhoneNo, new { @class = "form-control col-md-7 col-xs-12 txtRequired", @id = "txtPhoneNo", @required = "required", @type = "text", @placeholder = "Phone No" })
+                        @Html.ValidationMessageFor(model => model.PhoneNo, null, new { @class = "spnRequired" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="MaterialUnit">
+                        Address
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control col-md-7 col-xs-12 ", @id = "txtName", @type = "text", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "" })
+                    </div>
+                </div>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" style="border-top: 1px dotted #e4e0e0;">
+                <div style="margin:0 auto; width:200px">
+                    <button type="submit" class="btn btn-primary">UPDATE</button>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Customer")">CANCEL</a>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+    <!-- /.box -->
+
+
+</section>
+
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            MESSENGER();
+        });
+    </script>
+}

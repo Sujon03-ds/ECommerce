@@ -1,0 +1,208 @@
+﻿
+@model PagedList.IPagedList<ECommerce.Web.Models.Customer>
+@using PagedList.Mvc;
+@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+
+    ViewBag.Title = "Index";
+
+    int size = 10;
+
+    if (ViewBag.NoOfRows != null)
+    {
+        size = ViewBag.NoOfRows;
+    };
+    int Nopage = 1;
+    if (ViewBag.page != null)
+    {
+        Nopage = ViewBag.page;
+    };
+    int row = size * Nopage;
+    row = row - size;
+}
+
+
+<style>
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #e9ecef;
+    }
+
+    .table {
+        font-family: initial;
+        font-size: 16px;
+    }
+
+        .table th {
+            font-size: 13px;
+        }
+
+    tbody tr {
+        background-color: #fcfcfc;
+    }
+
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tbody tr:hover {
+            background-color: #f2f2f2 !important;
+        }
+
+    table, td, th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+
+    .txtRightAlign {
+        text-align: right;
+        padding-right: 20px;
+    }
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header" style="background-color: #ecf0f5;">
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+        <li class="active">Customer</li>
+    </ol>
+</section>
+<section class="content-header" style=" margin-bottom:50px; margin-top:50px; position:relative">
+    <h1 style="position:absolute; top:0px ; left:16px">All Customer</h1>
+    <a style="position:absolute; top:0px ; right:16px" class="btn btn-default" href="@Url.Action("Create", "Customer")"><i class="fa fa-plus-square-o"></i> Create New</a>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <!-- /.box -->
+
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body" style="margin-top:10px">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @using (Ajax.BeginForm("Index", "Customer", FormMethod.Get, new AjaxOptions
+                                {
+                                    UpdateTargetId = "BodyContainer",
+                                    InsertionMode = InsertionMode.Replace
+                                }))
+                                {
+
+                                    <div class="row">
+                                        <table style="margin-left:15px">
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-filter" style="margin-right: 5px; color: #aeaeae; font-size: 22px; padding-top: 12px; "></i>
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("NoOfRows", ViewBag.NoOfRows as string, new { @type = "number", @min = "3", @max = "100", @class = "form-control " })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control ", placeholder = "Name" })
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-light" style="background-color: #e6e6e6; "><i class="fa fa-search-plus" style="margin-right:5px; color:#808080"></i>Serach</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:30px">
+                            <div class="col-sm-12">
+                                <table>
+                                    <tr>
+                                        <th class="col-md-2" style="width: 40px; background-color: #dddddd8f">#</th>
+                                        <th>NAME</th>
+                                        <th>Phone No</th>
+                                        <th>Address</th>
+                                        <th class="col-md-2" style="width: 80px; background-color: #dddddd8f">ACTION</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        row++;
+                                        <tr>
+                                            <td class="col-md-2" style="width: 40px; background-color: #dddddd8f">
+                                                <span>@row</span>
+                                            </td>
+                                            @*<td>
+                                                <a class="links" href="@Url.Action("Detail", "Bank", new { id = item.Id })"><b>@item.Name</b></a>
+                                            </td>*@
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                @item.PhoneNo
+                                            </td>
+                                            <td>
+                                                @item.Address
+                                            </td>
+
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                        Action <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="@Url.Action("Details", "Customer", new { id = item.Id })">Detail</a></li>
+                                                        <li><a href="@Url.Action("Edit", "Customer", new { id = item.Id })">Edit</a></li>
+                                                        <li><a href="@Url.Action("Delete", "Customer", new { id = item.Id })" onclick="return DeleteItem(this);">Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" style="margin:0px;">
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, NoOfRows = ViewBag.NoOfRows }),
+                                                                 PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "BodyContainer" }))
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            MESSENGER();
+        });
+    </script>
+}
+
+

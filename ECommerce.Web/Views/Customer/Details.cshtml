@@ -1,0 +1,95 @@
+﻿
+@model ECommerce.Web.Models.Customer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .lblHead {
+        background-color: #eaeaea;
+        text-align: right;
+        font-weight: bold;
+        color: #646464;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header" style="background-color: #ecf0f5;">
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+        <li class="active">Customer</li>
+    </ol>
+</section>
+<section class="content-header" style=" margin-bottom:50px; margin-top:50px; position:relative">
+    <h1 style="position:absolute; top:0px ; left:16px;">Customer Detail</h1>
+
+    <div class="btn-group box-tools pull-right" role="group" aria-label="Basic example">
+        <a type="button" class="btn btn-default" href="@Url.Action("Index", "Customer")"><i class="fa fa-reply"></i> Back to list</a>
+        <a type="button" class="btn btn-default" href="@Url.Action("Edit", "Customer", new { id=Model.Id})"><i class="fa fa-edit"></i> Edit</a>
+    </div>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+
+        <!-- /.col -->
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-tools pull-right" style="padding: 10px; background-color: #3c8dbc2e">
+                    <h4 class="box-title">
+                        @Model.Name
+                    </h4>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <!-- /.mailbox-read-info -->
+                    <!-- /.mailbox-controls -->
+                    <div class="mailbox-read-message">
+                        <table class="table table-info" style="max-width:500px; margin:0 auto;">
+                            <tr>
+                                <td class="lblHead">Name</td>
+                                <td>@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Phone No</td>
+                                <td>@Model.PhoneNo</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Address</td>
+                                <td>@Model.Address</td>
+                            </tr>
+
+
+                        </table>
+
+                    </div>
+                    <!-- /.mailbox-read-message -->
+                </div>
+
+            </div>
+            <!-- /. box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+@section Scripts {
+    <script type="text/javascript">
+        MESSENGER();
+    </script>
+}
+
+

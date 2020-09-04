@@ -1,0 +1,220 @@
+﻿@model ECommerce.Web.Models.Order
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .txtRequired {
+        border-left: 2px solid #ff0000;
+    }
+
+    .spnRequired {
+        color: #ff0000;
+    }
+
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
+<section class="content-header" style="background-color: #ecf0f5;">
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><i class="fa fa-cog"></i> Sales</a></li>
+        <li class="active">Order</li>
+    </ol>
+</section>
+<section class="content-header" style=" margin-bottom:50px; margin-top:50px; position:relative">
+    <h1 style="position:absolute; top:0px ; left:16px">Create Order</h1>
+    <a style="position:absolute; top:0px ; right:16px" class="btn btn-default" href="@Url.Action("Index", "Order")"><i class="fa fa-reply"></i> Back to list</a>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+
+        @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @class = "form-horizontal form-label-left", @role = "form", autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Name
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.TextBoxFor(model => model.OrderName, new { @class = "form-control col-md-7 col-xs-12 txtRequired", @id = "txtName", @required = "required", @type = "text", @placeholder = "Name" })
+                        @Html.ValidationMessageFor(model => model.OrderName, null, new { @class = "spnRequired" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Customer
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="txtRequired">
+                            @Html.DropDownList("CustomerId", null, String.Empty, new { @class = "form-control select2", @id = "ddlCustomerId", @required = "required", @type = "text" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CustomerId, null, new { @class = "spnRequired" })
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnAddCustomer"><i class="fa fa-plus-square-o"></i>Add Customer</button>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Order Date
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="txtRequired">
+                            @Html.TextBoxFor(model => model.OrderDate, Model.OrderDate == null ? "" : Model.OrderDate.ToString("yyyy/MM/dd"), new { @class = "form-control date", @id = "txOrderDate", @required = "required", @type = "text", @placeholder = "Order date" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.OrderDate, null, new { @class = "spnRequired" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Price
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control col-md-7 col-xs-12 txtRequired", @id = "txtName", @required = "required", @type = "number", @min = "1", @placeholder = "Order Price" })
+                        @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "spnRequired" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        DeliveryStatus
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        <input type="radio" name="DeliveryStatus" value="true" /> Done
+                        <input type="radio" name="DeliveryStatus" value="false" checked="checked" /> Pending
+
+                        @Html.ValidationMessageFor(model => model.DeliveryStatus, "", new { @class = "spnRequired" })
+
+
+                    </div>
+                </div>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer" style="border-top: 1px dotted #e4e0e0;">
+                <div style="margin:0 auto; width:200px">
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Order")">CANCEL</a>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+    <!-- /.box -->
+    @*Add Customer Modal*@
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+                    <span id="vldMsg" hidden style="color:red"></span>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+                </div>
+                <div class="modal-body" id="moda-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+@section Scripts {
+
+    <script>
+
+        $('#btnAddCustomer').on("click", function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("AddCustomer")',
+                dataType: 'html',
+                success: function (result) {
+                    debugger;
+                    $('#exampleModal .modal-body').html(result);
+                    $('#exampleModal').modal('show');
+                },
+                error: function (ex) {
+                    alert('Operation failed!');
+                }
+            });
+
+
+        })
+        $('#btnSave').on("click", function () {
+            var $Formdata = $('#customerForm').serialize();
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SaveCustomer")',
+                dataType: 'json',
+                data: $Formdata,
+                success: function (result) {
+                    debugger;
+                    if (result.Status === "400") {
+                        $('#exampleModal').modal('hide');
+                        LoadCustomer();
+                    } else {
+                        $('#exampleModal #vldMsg').html(result.Msg);
+                        $('#exampleModal #vldMsg').show(300);
+
+                    }
+
+                },
+                error: function (ex) {
+                    alert('Operation failed!');
+                }
+            });
+
+
+        })
+
+        function LoadCustomer() {
+            $('#ddlCustomerId').empty();
+            $("#ddlCustomerId").append("<option value=''></option>");
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCustomers")',
+                dataType: 'json',
+                success: function (customers) {
+                    debugger;
+                    $.each(customers, function (i, customer) {
+                        $("#ddlCustomerId").append('<option value="' + customer.Id + '">' + customer.Name + '</option>');
+                    });
+
+                },
+                error: function (ex) {
+                    alert('Operation failed!');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            MESSENGER();
+        });
+    </script>
+}

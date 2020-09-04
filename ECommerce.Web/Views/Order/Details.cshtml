@@ -1,0 +1,114 @@
+﻿
+@model ECommerce.Web.Models.Order
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .lblHead {
+        background-color: #eaeaea;
+        text-align: right;
+        font-weight: bold;
+        color: #646464;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header" style="background-color: #ecf0f5;">
+    <ol class="breadcrumb" style="float:left">
+        <li><a href="#"><i class="fa fa-cog"></i> Sales</a></li>
+        <li class="active">Order</li>
+    </ol>
+</section>
+<section class="content-header" style=" margin-bottom:50px; margin-top:50px; position:relative">
+    <h1 style="position:absolute; top:0px ; left:16px;">Order Detail</h1>
+
+    <div class="btn-group box-tools pull-right" role="group" aria-label="Basic example">
+        <a type="button" class="btn btn-default" href="@Url.Action("Index", "Order")"><i class="fa fa-reply"></i> Back to list</a>
+        <a type="button" class="btn btn-default" href="@Url.Action("Edit", "Order", new { id=Model.Id})"><i class="fa fa-edit"></i> Edit</a>
+    </div>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+
+        <!-- /.col -->
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                @*<div class="box-tools pull-right" style="padding: 10px; background-color: #3c8dbc2e">
+                    <h4 class="box-title">
+                        @Model.Name
+                    </h4>
+                </div>*@
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <!-- /.mailbox-read-info -->
+                    <!-- /.mailbox-controls -->
+                    <div class="mailbox-read-message">
+                        <table class="table table-info" style="max-width:500px; margin:0 auto;">
+                            <tr>
+                                <td class="lblHead">Order Name</td>
+                                <td>@Model.OrderName</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Order Date</td>
+                                <td>@Model.OrderDate.ToString("dd-MMM-yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Customer Name</td>
+                                <td>@Model.Customer.Name</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="lblHead">Customer Phone</td>
+                                <td>@Model.Customer.PhoneNo</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Order Price</td>
+                                <td>@Model.Amount</td>
+                            </tr>
+                            <tr>
+                                <td class="lblHead">Delivery Status</td>
+                                @if (Model.DeliveryStatus)
+                                {
+                                    <td>Done</td>
+                                }
+                                else
+                                {
+                                    <td>Pending</td>
+                                }
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    <!-- /.mailbox-read-message -->
+                </div>
+
+            </div>
+            <!-- /. box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+@section Scripts {
+    <script type="text/javascript">
+        MESSENGER();
+    </script>
+}
+
+

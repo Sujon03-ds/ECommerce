@@ -1,0 +1,168 @@
+﻿@model ECommerce.Web.Models.ViewModels.vmRegister
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Smart Enterprise";
+}
+<style>
+    #RememberMe {
+        display: none;
+    }
+
+    .txtMan {
+        border-left: 2px solid green;
+    }
+</style>
+<div class="main-content">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="login-container">
+                <div class="center">
+                    <h1>
+                        @*<span class="fa fa-laptop-code" style="color: #7b7b7b;"></span>
+                            <span class="red">Acc</span>
+                            <span class="white" id="id-text2">360</span>*@
+                    </h1>
+                </div>
+
+                @*<div class="space-6"></div>*@
+
+                @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @id = "frm" }))
+                {@Html.AntiForgeryToken()
+                    <div class="position-relative">
+                        <div id="signup-box" class="signup-box widget-box no-border visible">
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div style="text-align:center">
+                                        <img src="~/Content/logo2.png" />
+                                    </div>
+                                    <h4 class="header green lighter bigger">
+                                        <i class="ace-icon fa fa-users blue"></i>
+                                        New User Registration
+                                    </h4>
+
+                                    <div class="space-6"></div>
+                                    <span style="color:red"> @Html.ValidationSummary()</span>
+                                    <p> Enter your details to begin: </p>
+
+                                    <form>
+                                        <fieldset>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right txtMan">
+                                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @id = "txtMobile", @placeholder = "Mobile Number" })
+                                                    <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.Mobile)</span>
+                                                    @*<input type="number" class="form-control" placeholder="Mobile Number" >*@
+                                                    <i class="ace-icon fa fa-mobile-phone" style="font-size:28px"></i>
+                                                </span>
+                                            </label>
+
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right txtMan">
+                                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "txtUsername", @placeholder = "Username" })
+                                                    <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.UserName)</span>
+                                                    @*<input type="text" class="form-control" placeholder="Username">*@
+                                                    <i class="ace-icon fa fa-user"></i>
+                                                </span>
+                                            </label>
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right txtMan">
+                                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "txtPassword", @placeholder = "Password" })
+                                                    <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.Password)</span>
+                                                    @*<input type="password" class="form-control" placeholder="Password">*@
+                                                    <i class="ace-icon fa fa-lock"></i>
+                                                </span>
+                                            </label>
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right txtMan">
+                                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @id = "txtRepeat", @placeholder = "Repeat password" })
+                                                    <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.ConfirmPassword)</span>
+                                                    @*<input type="password" class="form-control" placeholder="Repeat password">*@
+                                                    <i class="ace-icon fa fa-retweet"></i>
+                                                </span>
+                                            </label>
+                                            @*<label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "txtEmail", @placeholder = "Email" })
+                                                    <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.Email)</span>*@
+                                                    @*<input type="email" class="form-control" placeholder="Email">*@
+                                                    @*<i class="ace-icon fa fa-envelope"></i>
+                                                </span>
+
+
+                                            </label>*@
+
+                                            <div style="position:relative">
+                                                <label class="block">
+
+                                                    @Html.CheckBoxFor(m => m.IsChecked, new { @id = "IsChecked" })<span style="left:23px; top:3px;position:absolute">I accept the</span>
+                                                    <a href="#" style="position:absolute; right:0px; top:3px;" onclick="CheckAgreement()">User Agreement</a>
+                                                </label>
+                                            </div>
+
+
+                                            <div class="space-24"></div>
+
+                                            <div class="clearfix">
+                                                <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                    <span class="bigger-110">Reset</span>
+                                                </button>
+
+                                                <button type="submit" class="width-65 pull-right btn btn-sm btn-success">
+                                                    <span class="bigger-110">Register</span>
+
+                                                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                </button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+
+                                <div class="toolbar center">
+                                    <a href="@Url.Action("Login","Account")" class="" style="color: #CF7">
+                                        <i class="ace-icon fa fa-arrow-left"></i>
+                                        Back to login
+                                    </a>
+                                </div>
+                            </div><!-- /.widget-body -->
+                        </div><!-- /.signup-box -->
+                    </div><!-- /.position-relative -->
+                }
+
+
+
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            //CheckAgreement();
+
+        });
+        //function CheckAgreement() {
+
+        //    if ($('#IsChecked').is(':checked')) {
+        //        $("#IsChecked").prop('checked', false)
+
+        //    }
+        //    else {
+
+        //        $("#IsChecked").prop('checked', true)
+        //        Agreement();
+
+        //    }
+        //}
+
+
+    </script>
+
+}

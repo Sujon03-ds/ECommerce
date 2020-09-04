@@ -1,0 +1,142 @@
+﻿@model ECommerce.Web.Models.LoginViewModel
+< a href = "~/Models/AccountViewModels.cs" > ~/ Models / AccountViewModels.cs </ a >
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "ECommerce";
+}
+
+<div class="main-content">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="login-container">
+                <div class="center">
+                    <h1>
+
+                        @*<span class="fa fa-laptop-code" style="color: #7b7b7b;"></span>
+                            <span class="red">eCounting</span>
+                            <span class="white" id="id-text2">360</span>*@
+                    </h1>
+                </div>
+
+                @*<div class="space-6"></div>*@
+
+                <div class="position-relative">
+                    <div id="login-box" class="login-box visible widget-box no-border">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div style="text-align:center">
+                                    <img src="~/Content/logo2.png" />
+                                </div>
+
+                                <h4 class="header blue lighter bigger">
+                                    <i class="ace-icon fa fa-coffee green"></i>
+                                    Please Enter Login Information
+                                </h4>
+
+                                <div class="space-6"></div>
+
+
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form", @id = "frm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <span style="color:red"> @Html.ValidationSummary()</span>
+                                    <fieldset>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "txtUserName", @placeholder = "Username" })
+                                                <i class="ace-icon fa fa-user"></i>
+                                            </span>
+                                            <span style="color:red; font-weight:normal">@Html.ValidationMessageFor(m => m.UserName)</span>
+                                        </label>
+
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "txtPassword", @placeholder = "Password" })
+                                                <i class="ace-icon fa fa-lock"></i>
+                                            </span>
+
+                                            <span style="color: red; font-weight: normal">@Html.ValidationMessageFor(m => m.Password)</span>
+                                        </label>
+
+                                        <div class="space"></div>
+
+                                        <div class="clearfix">
+                                            <label class="inline">
+
+                                                @Html.CheckBoxFor(m => m.RememberMe, new { @id = "RememberMe" })
+                                                <span class="lbl" style="color:#7b7b7b"> Remember Me</span>
+                                            </label>
+
+                                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                <i class="ace-icon fa fa-key"></i>
+                                                <span class="bigger-110">Login</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="space-4"></div>
+                                    </fieldset>
+
+                                }
+                                <div class="social-or-login center">
+                                    <span class="bigger-110"></span>
+                                </div>
+
+                                <div class="space-6"></div>
+
+                                <div class="social-login center">
+                                    &copy; @DateTime.Now.Year -    <a href="http://datasoft-bd.com/" style="color:#808080" target="_blank">DataSoft System Bangladesh Ltd</a>.
+                                    @*<a class="btn btn-primary">
+                                            <i class="ace-icon fa fa-facebook"></i>
+                                        </a>
+
+                                        <a class="btn btn-info">
+                                            <i class="ace-icon fa fa-twitter"></i>
+                                        </a>
+
+                                        <a class="btn btn-danger">
+                                            <i class="ace-icon fa fa-google-plus"></i>
+                                        </a>*@
+                                </div>
+                            </div><!-- /.widget-main -->
+
+                            <div class="toolbar clearfix">
+                                <div>
+                                    <a href="@Url.Action("Forgot","Account")" class="" style="color: #FE9">
+                                        <i class="ace-icon fa fa-arrow-left"></i>
+                                        I forgot my password
+                                    </a>
+                                </div>
+
+                                <div>
+                                    <a href="@Url.Action("Register","Account")" class="" style="color: #CF7">
+                                        I want to register
+                                        <i class="ace-icon fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.login-box -->
+                    <!-- /.forgot-box -->
+                    <!-- /.signup-box -->
+                </div><!-- /.position-relative -->
+
+
+            </div>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
+@section Scripts {
+
+    <script>
+
+
+
+
+
+    </script>
+
+}

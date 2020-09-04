@@ -1,0 +1,64 @@
+﻿@if (TempData["save"] == "1")    // Save Message
+{
+    
+    <div class="msgBox" id="1" style="display: none;">
+        <div style="color: #22b047; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">Data Successfully Saved</p>
+        </div>
+    </div>
+
+}
+@if (TempData["update"] == "1")    // Update Message
+{
+    
+    <div class="msgBox" id="2" style="display: none; ">
+        <div style="color: #22b047; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">Data Successfully Updated</p>
+        </div>
+    </div>
+
+}
+@if (TempData["delete"] == "1")    // Delete Message
+{
+    
+    <div class="msgBox" id="3" style="display: none; ">
+        <div style="color: #22b047; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">Data Successfully Deleted</p>
+        </div>
+    </div>
+
+}
+
+@if (TempData["error"] != "1" && TempData["error"] != null)    //Custom
+{
+    
+    <div class="msgBox" id="4" style="display: none; ">
+        <div style="color: #ec7163; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">@Html.Raw(TempData["error"].ToString()) </p>
+        </div>
+    </div>
+
+
+}
+@if (TempData["warning"] != "1" && TempData["warning"] != null)    //Warning
+{
+    
+    <div class="msgBox" id="5" style="display: none; ">
+        <div style="color: #ff6a00; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">@TempData["warning"].ToString() </p>
+        </div>
+    </div>
+
+}
+
+@if (TempData["success"] != "1" && TempData["success"] != null)    //Success
+{
+    
+    <div class="msgBox" id="6" style="display: none; ">
+        <div style="color: #22b047; text-align: center; font-weight: bold; font-family: monospace; ">
+            <p id="message">@TempData["success"].ToString()) </p>
+        </div>
+    </div>
+
+
+}
