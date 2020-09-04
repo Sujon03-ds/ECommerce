@@ -14,7 +14,6 @@ namespace ECommerce.Web.Controllers
     {
 
         private ICustomerManager _customerManager;
-//Jahangir
 
         public CustomerController(ICustomerManager _customerManager)
         {
