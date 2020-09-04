@@ -110,6 +110,7 @@ function INVALIDIMAGE(msg) {
 }
 function DeleteItem(obj)
 {
+    debugger;
     $.confirm({
         title: 'Are you sure to delete this item?',
         content:null,
@@ -130,20 +131,6 @@ function DeleteItem(obj)
         }
     });
     return false;
-    //$.confirm({
-    //    title: 'Confirm!',
-    //    content: 'Are you sure you wish to delete this item?',
-    //    buttons: {
-    //        confirm: function () {
-    //            document.location = obj;
-    //            return true;
-                
-    //        },
-    //        cancel: function () {
-    //            return false;
-    //        }
-    //    }
-    //});
-    //return false;
+    
 }
 
