@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AccCoder.cs" />
+    <Compile Include="Helpers\DateFormating.cs" />
     <Compile Include="Helpers\SendEmail.cs" />
     <Compile Include="Managers\BaseManager.cs" />
     <Compile Include="Managers\IOrderManager.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\ViewModels\TO_IndexOrder.cs" />
     <Compile Include="Models\ViewModels\vmDashoard.cs" />
     <Compile Include="Models\ViewModels\vmDropDownList.cs" />
     <Compile Include="Models\ViewModels\vmRegister.cs" />

@@ -16,7 +16,8 @@ namespace ECommerce.Web.Managers
         bool CheckIfExist(string PhoneNo);
         bool CheckIfExistForUpdate(int id, string PhonoNo);
         List<vmDropDownList> GetCustomerDropDown();
-        IPagedList<Order> GetCustomerPageList(int pageNo, int rowNo, string searchString);
+        IPagedList<Order> GetPageList(int pageNo, int rowNo, string searchString,string customerName);
+        IPagedList<TO_IndexOrder> GetOrderPageList(int pageNo, int rowNo, string searchString, string customerName);
     }
     public class OrderManager : BaseManager<Order>, IOrderManager
     {
@@ -73,7 +74,7 @@ namespace ECommerce.Web.Managers
             return (list);
         }
 
-        public IPagedList<Order> GetCustomerPageList(int pageNo, int rowNo, string searchString)
+        public IPagedList<Order> GetPageList(int pageNo, int rowNo, string searchString,string customerName)
         {
             if (String.IsNullOrEmpty(searchString))
             {
@@ -89,6 +90,29 @@ namespace ECommerce.Web.Managers
 
             }
 
+        }
+        public IPagedList<TO_IndexOrder> GetOrderPageList(int pageNo, int rowNo, string searchString, string customerName)
+        {
+            string prm = string.Empty;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                DateTime dtt = DateTime.Now;
+                if (DateTime.TryParse(searchString.Trim(), out dtt)) { }
+                prm += string.Format(@" and CONVERT(date,o.OrderDate)=CONVERT(date,'{0}')", dtt);
+            }
+            if (!string.IsNullOrEmpty(customerName))
+            {
+                prm += string.Format(@" and c.Name like '{0}%'", customerName.Trim());
+            }
+            string sqlTotalRows = string.Format(@"SELECT COUNT(*) FROM dbo.Orders o 
+                    INNER JOIN dbo.Customers c ON c.Id = o.CustomerId WHERE o.Amount>{0} {1}", 0, prm);
+            string sqlQuery = string.Format(@"SELECT o.Id,o.OrderName,o.OrderDate,o.Amount,o.DeliveryStatus
+                    ,c.Name AS CustomerName,c.PhoneNo AS CustomerPhoneNo FROM dbo.Orders o 
+                    INNER JOIN dbo.Customers c ON c.Id = o.CustomerId WHERE o.Amount>{0} {1}", 0, prm);
+            var data = db.Database.SqlQuery<TO_IndexOrder>(sqlQuery).ToList().OrderByDescending(i => i.Id);
+            int totalRows = db.Database.SqlQuery<int>(sqlTotalRows).FirstOrDefault();
+
+            return new StaticPagedList<TO_IndexOrder>(data, pageNo, rowNo, totalRows);
         }
 
         #region DISPOSED

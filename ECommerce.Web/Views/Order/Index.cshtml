@@ -1,5 +1,5 @@
 ﻿
-@model PagedList.IPagedList<ECommerce.Web.Models.Order>
+@model PagedList.IPagedList<ECommerce.Web.Models.ViewModels.TO_IndexOrder>
 @using PagedList.Mvc;
 @{
     if (Request.IsAjaxRequest())
@@ -117,7 +117,10 @@
                                                     @Html.TextBox("NoOfRows", ViewBag.NoOfRows as string, new { @type = "number", @min = "3", @max = "100", @class = "form-control " })
                                                 </td>
                                                 <td>
-                                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control ", placeholder = "Customer Name" })
+                                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control date", placeholder = "Order Date" })
+                                                </td>
+                                                <td>
+                                                    @Html.TextBox("customerName", ViewBag.CustomerName as string, new { @class = "form-control ", placeholder = "Customer Name" })
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-light" style="background-color: #e6e6e6; "><i class="fa fa-search-plus" style="margin-right:5px; color:#808080"></i>Serach</button>
@@ -172,10 +175,10 @@
                                                 @item.OrderDate.ToString("dd-MMM-yyyy")
                                             </td>
                                             <td>
-                                                @item.Customer.Name
+                                                @item.CustomerName
                                             </td>
                                             <td>
-                                                @item.Customer.PhoneNo
+                                                @item.CustomerPhoneNo
 
                                             </td>
                                             <td>
@@ -183,11 +186,11 @@
                                             </td>
                                             @if (item.DeliveryStatus)
                                             {
-                                                <td>Done</td>
+                                                <td style="background-color:green">Done</td>
                                             }
                                             else
                                             {
-                                                <td>Pending</td>
+                                                <td style="background-color:yellow">Pending</td>
                                             }
 
                                             <td>
@@ -209,7 +212,7 @@
                         </div>
                         <div class="row" style="margin:0px;">
                             @Html.PagedListPager(Model, page => Url.Action("Index",
-                                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, NoOfRows = ViewBag.NoOfRows }),
+                                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, customerName= ViewBag.CustomerName, NoOfRows = ViewBag.NoOfRows }),
                                                                  PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "BodyContainer" }))
 
 
@@ -225,11 +228,16 @@
     </div>
     <!-- /.row -->
 </section>
+<script type="text/javascript">
+    $(function () {
+        $('.date').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
+    });
 
+</script>
 @section Scripts {
 
     <script type="text/javascript">
-
+        
         $(document).ready(function () {
             MESSENGER();
         });

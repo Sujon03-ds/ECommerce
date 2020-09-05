@@ -25,7 +25,7 @@ namespace ECommerce.Web.Controllers
             this._ordeManager = _ordeManager;
         }
         
-        public ActionResult Index(string currentFilter, string searchString, int? page = 1, int? NoOfRows = 10)
+        public ActionResult Index(string currentFilter, string searchString, string customerName, int? page = 1, int? NoOfRows = 10)
         {
             
             if (page < 1)
@@ -33,7 +33,7 @@ namespace ECommerce.Web.Controllers
                 page = 1;
             }
 
-            if (searchString != null)
+            if (searchString != null )
             {
                 page = 1;
             }
@@ -41,10 +41,12 @@ namespace ECommerce.Web.Controllers
             {
                 searchString = currentFilter;
             }
+            
             ViewBag.page = page;
             ViewBag.CurrentFilter = searchString;
+            ViewBag.customerName = customerName;
             ViewBag.NoOfRows = NoOfRows;
-            return View(_ordeManager.GetCustomerPageList(page.Value, NoOfRows.Value,  searchString));
+            return View(_ordeManager.GetOrderPageList(page.Value, NoOfRows.Value,  searchString, customerName));
 
         }
 

@@ -91,9 +91,9 @@
                         DeliveryStatus
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-
-                        <input type="radio" name="DeliveryStatus" value="true" /> Done
-                        <input type="radio" name="DeliveryStatus" value="false" checked="checked" /> Pending
+                        
+                        <label>@Html.RadioButtonFor(model => model.DeliveryStatus, "true")  Done</label>
+                        <label> @Html.RadioButtonFor(model => model.DeliveryStatus, "false")  Pending</label>
 
                         @Html.ValidationMessageFor(model => model.DeliveryStatus, "", new { @class = "spnRequired" })
 
@@ -156,6 +156,7 @@
                 success: function (result) {
                     debugger;
                     $('#exampleModal .modal-body').html(result);
+                    $('#exampleModal #vldMsg').hide();
                     $('#exampleModal').modal('show');
                 },
                 error: function (ex) {

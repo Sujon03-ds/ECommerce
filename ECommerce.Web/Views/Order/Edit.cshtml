@@ -40,7 +40,7 @@
             @Html.AntiForgeryToken()
             <!-- /.box-header -->
             <div class="box-body">
-
+                @Html.HiddenFor(model => model.CreatedOn)
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                         Name
@@ -71,6 +71,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="txtRequired">
+                            
                             @Html.TextBoxFor(model => model.OrderDate, Model.OrderDate == null ? "" : Model.OrderDate.ToString("yyyy/MM/dd"), new { @class = "form-control date", @id = "txOrderDate", @required = "required", @type = "text", @placeholder = "Order date" })
                         </div>
                         @Html.ValidationMessageFor(model => model.OrderDate, null, new { @class = "spnRequired" })
@@ -92,13 +93,15 @@
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                        <input type="radio" name="DeliveryStatus" value="true" /> Done
-                        <input type="radio" name="DeliveryStatus" value="false" checked="checked" /> Pending
+                        <label> @Html.RadioButtonFor(model => model.DeliveryStatus, "true")  Done</label>
+                        <label>
+                            @Html.RadioButtonFor(model => model.DeliveryStatus, "false")  Pending
+                        </label>
 
                         @Html.ValidationMessageFor(model => model.DeliveryStatus, "", new { @class = "spnRequired" })
 
 
-                    </div>
+</div>
                 </div>
 
                 <!-- /.row -->
